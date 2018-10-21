@@ -1,3 +1,4 @@
+import json
 import logging.config
 from telegram.ext import Updater, CommandHandler
 from modules.handlers import all_handlers_dict
