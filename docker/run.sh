@@ -6,7 +6,7 @@ COMMAND="docker/daemon.sh"
 sudo docker stop $CONTAINER_NAME
 sudo docker rm $CONTAINER_NAME
 sudo docker run \
-    -d \
+	 -d \
     --restart always \
     -e TZ=Europe/Kiev \
     --name $CONTAINER_NAME \

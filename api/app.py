@@ -1,18 +1,19 @@
-import json
 import logging.config
-from telegram.ext import Updater, CommandHandler
-from modules.handlers import all_handlers_dict
 
-with open('resources/config.json', encoding='utf-8') as f:
-    config = json.load(f)
+from telegram.ext import CommandHandler, MessageHandler
+
+import modules.utils as utils
+from modules.handlers import commands_handlers_dict, messages_handlers_dict
+
 
 if __name__ == '__main__':
-    logging.config.dictConfig(config['logging'])
+    logging.config.dictConfig(utils.config['logging'])
 
-    updater = Updater(token=config['TOKEN'])
-    dispatcher = updater.dispatcher
-    for handler_name, handler_func in all_handlers_dict.items():
+    dispatcher = utils.updater.dispatcher
+    for handler_name, handler_func in commands_handlers_dict.items():
         dispatcher.add_handler(CommandHandler(handler_name, handler_func))
+    for handler_filter, handler_func in messages_handlers_dict.items():
+        dispatcher.add_handler(MessageHandler(handler_filter, handler_func))
 
     logging.info('Start bot')
-    updater.start_polling()
+    utils.updater.start_polling()

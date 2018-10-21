@@ -1,16 +1,16 @@
 {
     "TOKEN": "762943996:AAGW643xkxbd4pkGOfQF4QdvfltzgQkjFrU",
     "logging": {
-	    "disable_existing_loggers": true,
+	    "disable_existing_loggers": false,
 	    "version": 1,
 	    "formatters": {
 	    	"debug": {
 	    		"class": "logging.Formatter",
-	    		"format": "[%(asctime)s] %(module)-15s | %(name)-15s | %(levelname)-10s | %(message)s"
+	    		"format": "[%(asctime)s] %(module)-15s | %(name)-30s | %(levelname)-10s | %(message)s"
 	    	},
 	    	"prod": {
 	    		"class": "logging.Formatter",
-	    		"format": "%(message)s"
+	    		"format": "[%(asctime)s] %(message)s"
 	    	}
 	    },
 	    "handlers": {
