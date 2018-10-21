@@ -1,3 +1,47 @@
 {
-    "TOKEN": "762943996:AAGW643xkxbd4pkGOfQF4QdvfltzgQkjFrU"
+    "TOKEN": "762943996:AAGW643xkxbd4pkGOfQF4QdvfltzgQkjFrU",
+    "logging": {
+	    "disable_existing_loggers": true,
+	    "version": 1,
+	    "formatters": {
+	    	"debug": {
+	    		"class": "logging.Formatter",
+	    		"format": "[%(asctime)s] %(module)-15s | %(name)s | %(levelname)s | %(message)s"
+	    	},
+	    	"prod": {
+	    		"class": "logging.Formatter",
+	    		"format": "%(message)s"
+	    	}
+	    },
+	    "handlers": {
+	    	"console": {
+		        "level": "DEBUG",
+		        "class": "logging.StreamHandler",
+		        "formatter": "debug",
+		        "stream": "ext://sys.stdout"
+		    },
+		    "file": {
+		        "level": "DEBUG",
+		        "class": "logging.handlers.WatchedFileHandler",
+		        "formatter": "debug",
+		        "filename": "logs/debug.log",
+		        "mode": "a",
+		        "encoding": "utf-8"
+		    },
+		    "prod": {
+		        "level": "INFO",
+		        "class": "logging.handlers.WatchedFileHandler",
+		        "formatter": "prod",
+		        "filename": "logs/prod.log",
+		        "mode": "a",
+		        "encoding": "utf-8"
+		    }
+		},
+	    "root": {
+	        "handlers": [
+	        	"prod", "file", "console"
+	        ],
+	        "level": "DEBUG"
+	    }
+    }
 }
