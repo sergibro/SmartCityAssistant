@@ -35,7 +35,7 @@ def get_top_posts(bot, update, args):
 
 
 
-def get_trends_stats(bot, update, args):
+#def get_trends_stats(bot, update, args):
 #     get trends by key
 #     using SDao
 
