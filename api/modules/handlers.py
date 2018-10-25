@@ -1,6 +1,7 @@
 import modules.utils as utils
 from telegram.ext import Filters
 from telegram import ParseMode
+from modules.parsers.online import OnlineParser
 
 HELP_DICT = {
     "/start": "Start bot.",
@@ -17,7 +18,7 @@ def help(bot, update, args):
 def crash(bot, update, args):
     bot.send_message(chat_id=update.message.chat_id, text="Crashing...")
     utils.time.sleep(3)
-    bot.send_message(chat_id=update.message.chat_id, text="Crashed", parse_mode=ParseMode.MARKDOWN)
+    bot.send_message(chat_id=update.message.chat_id, text="Crashed")
     utils.updater.stop()
     utils.updater.is_idle = False
 
@@ -26,7 +27,11 @@ def get_top_posts(bot, update, args):
     text_caps = ' '.join(args).upper()
     bot.send_message(chat_id=update.message.chat_id, text="Looking for tops...")
     utils.time.sleep(3)
-    bot.send_message(chat_id=update.message.chat_id, text="Tadam!")
+    op = OnlineParser()
+    resList = op.get_top_posts(text_caps)
+    links = ["[this is link](" + p["postTelegramUrl"]+ ")" for p in resList]
+    msg = "\n".join(links)
+    bot.send_message(chat_id=update.message.chat_id, text=msg, parse_mode=ParseMode.MARKDOWN)
 
 
 
