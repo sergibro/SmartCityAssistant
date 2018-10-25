@@ -11,7 +11,7 @@ if __name__ == '__main__':
 
     dispatcher = utils.updater.dispatcher
     for handler_name, handler_func in commands_handlers_dict.items():
-        dispatcher.add_handler(CommandHandler(handler_name, handler_func))
+        dispatcher.add_handler(CommandHandler(handler_name, handler_func, pass_args=True))
     for handler_filter, handler_func in messages_handlers_dict.items():
         dispatcher.add_handler(MessageHandler(handler_filter, handler_func))
 
