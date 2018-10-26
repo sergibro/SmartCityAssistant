@@ -1,7 +1,14 @@
 {
     "TOKEN": "762943996:AAGW643xkxbd4pkGOfQF4QdvfltzgQkjFrU",
+    "ES": {
+        "USERNAME": "elastic",
+        "PASSWORD": "1c2GkFuJqn0hkqcgOZihnXiN",
+        "HOST": "46a8f30479004036921907d3afe8c617.us-east-1.aws.found.io",
+        "PORT": 9243,
+        "INDEX_NAME": "sca"
+    },
     "logging": {
-	    "disable_existing_loggers": false,
+	    "disable_existing_loggers": true,
 	    "version": 1,
 	    "formatters": {
 	    	"debug": {

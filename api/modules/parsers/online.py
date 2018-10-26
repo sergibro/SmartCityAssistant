@@ -1,31 +1,19 @@
 import time
 from datetime import datetime
 from requests import Session
+from modules.parsers.utils import *
+
+index_name = es_config['INDEX_NAME']
 
 class OnlineParser():
-    URL = "https://uk.tgstat.com/posts/list"
-
     def __init__(self):
         self.s = Session()
-
-    @staticmethod
-    def form_data(search=""):
-        data = {
-        #     "sort": "",
-        #     "sort_direction": "",
-        #     "period": "prev_year",
-        #     "category": "",
-        #     "language": "english",
-            "country": "ua",
-            "search": search
-        }
-        return data
 
     def api_call(self, data, num_try=5):
         r = {"error": {"message": {"Unknown error"}}}
         for i in range(num_try):
             try:
-                r = self.s.post(self.URL, data=data)
+                r = self.s.post(TGSTATS_POSTS_URL, data=data)
                 if r.status_code == 200:
                     r = r.json()
                     break
@@ -36,14 +24,18 @@ class OnlineParser():
         return r
 
     def get_top_posts(self, search_term="", top_n=5):
-        data = OnlineParser.form_data(search_term)
+        data = form_data(search_term)
         resp_list = self.api_call(data).get("items", [])
         res_list = []
-        for p in resp_list[:top_n]:
-            p = {
-                "postTelegramUrl": p.get("postTelegramUrl", ""),
-                "views": p.get("views", -1),
-                "date": p.get("date", "")  # datetime.strptime("2018 " + p.get("date", ""), "%Y %d %b, %H:%M")
-            }
+        for p in resp_list:
+            p = transform_post_info(p)
             res_list.append(p)
+        es_helpers.bulk(es, [{
+            "_index": index_name,
+            "_type": "doc",
+            "_id": p.pop("id"),
+            "body": p
+            } for p in res_list])
+        for p in res_list[:top_n]:
+            pass
         return res_list
