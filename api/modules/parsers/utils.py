@@ -1,6 +1,9 @@
+import time
+from datetime import datetime
+from requests import Session
 from elasticsearch import Elasticsearch
 import elasticsearch.helpers as es_helpers
-from modules.utils import config
+from api.modules.utils import config
 
 es_config = config["ES"]
 
@@ -94,7 +97,7 @@ class AtimicParser():
         r = {"error": {"message": {"Unknown error"}}}
         for i in range(num_try):
             try:
-                r = self.s.post(self.URL, data=data)
+                r = self.s.post(TGSTATS_POSTS_URL, data=data)
                 if r.status_code == 200:
                     r = r.json()
                     break
@@ -119,20 +122,20 @@ def form_data(search="", period="yesterday", country="ua",
         data["language"] = "english"
     return data
 
-def transform_post_info(post):
-    postTelegramUrl = p.pop("postTelegramUrl", "")
+def transform_post_info(post, year="2018"):
+    postTelegramUrl = post.pop("postTelegramUrl", "")
     channel = postTelegramUrl.split("tg://resolve?domain=")[-1]
     channel, post_num = channel.split("&post=")
     post_num = int(post_num)
     res_post = {
-        "_id": p.get("id"),
-        "title": p.get("title": ""),
+        "_id": post.get("id"),
+        "title": post.get("title", ""),
         "postTelegramUrl": postTelegramUrl,
-        "views": p.get("views", -1),
-        "date": datetime.strptime("2018 " + p.get("date"), "%Y %d %b, %H:%M"),
+        "views": post.get("views", -1),
+        "date": datetime.strptime(year + " " + post.get("date"), "%Y %d %b, %H:%M"),
         "channel": channel,
         "post_num": post_num,
-        "forwards_count": int(p.get("forwards_count", 0)),
-        "url": p.get("url", "")
+        "forwards_count": int(post.get("forwards_count", 0)),
+        "url": post.get("url", "")
     }
     return res_post
