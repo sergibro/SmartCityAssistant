@@ -1,4 +1,6 @@
 # SmartCityAssistant
+https://github.com/sergibro/SmartCityAssistant
+
 https://t.me/SmartCityAssistantBot
 
 Data sources:
