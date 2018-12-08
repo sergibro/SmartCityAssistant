@@ -108,7 +108,7 @@ class AtimicParser():
         return r
 
 
-def form_data(search="", period="yesterday", country="ua",
+def form_data(search="", period="7days", country="ua",
     en=False, category="", sort="", sort_direction=""):
     data = {
         "search": search,
