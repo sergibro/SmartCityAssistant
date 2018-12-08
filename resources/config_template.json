@@ -1,12 +1,15 @@
 {
-    "TOKEN": "762943996:AAGW643xkxbd4pkGOfQF4QdvfltzgQkjFrU",
+    "TOKEN": "TG-TOKEN",
     "ES": {
-        "USERNAME": "elastic",
-        "PASSWORD": "1c2GkFuJqn0hkqcgOZihnXiN",
-        "HOST": "46a8f30479004036921907d3afe8c617.us-east-1.aws.found.io",
-        "PORT": 9243,
-        "INDEX_NAME": "sca"
+        "USERNAME": "ES_USERNAME",
+        "PASSWORD": "ES_PASSWORD",
+        "HOST": "ES_HOST",
+        "PORT": "ES_PORT",
+        "INDEX_NAME": "ES_INDEX_NAME"
     },
+	"SOCKS": [
+		"SOCKS1"
+	],
     "logging": {
 	    "disable_existing_loggers": true,
 	    "version": 1,
