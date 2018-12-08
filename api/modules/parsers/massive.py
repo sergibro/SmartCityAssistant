@@ -1,4 +1,4 @@
-from utils import *
+from modules.parsers.utils import *
 
 class MassiveParser(AtimicParser):
     def __init__(self):
