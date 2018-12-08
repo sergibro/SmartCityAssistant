@@ -3,7 +3,7 @@ from datetime import datetime
 from requests import Session
 from elasticsearch import Elasticsearch
 import elasticsearch.helpers as es_helpers
-from api.modules.utils import config
+from modules.utils import config
 
 es_config = config["ES"]
 

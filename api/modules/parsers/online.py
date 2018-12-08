@@ -1,4 +1,4 @@
-from api.modules.parsers.utils import *
+from utils import *
 
 class OnlineParser(AtimicParser):
     def __init__(self):
